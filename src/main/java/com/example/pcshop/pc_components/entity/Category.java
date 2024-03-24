@@ -1,4 +1,4 @@
-package com.example.pcshop.peripherals.entity;
+package com.example.pcshop.pc_components.entity;
 
 
 import jakarta.persistence.*;

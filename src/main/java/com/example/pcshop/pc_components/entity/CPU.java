@@ -1,16 +1,16 @@
-package com.example.pcshop.peripherals.entity;
+package com.example.pcshop.pc_components.entity;
 
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 public class CPU extends Product {
     @Column(nullable = false)
     private int core;
