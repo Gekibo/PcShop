@@ -1,17 +1,22 @@
-package com.example.pcshop.peripherals.entity;
+package com.example.pcshop.pc_components.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
+@SuperBuilder
 @Entity
 @Table(name = "products")
 public abstract class Product {
+//    @Builder.Default
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
