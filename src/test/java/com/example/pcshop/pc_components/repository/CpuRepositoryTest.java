@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,9 +21,9 @@ class CpuRepositoryTest {
     @BeforeEach
     void setUp(){
         cpu = CPU.builder()
-                .id(1)
+//                .id(1)
                 .name("i5-7500k")
-                .description("coś ")
+                .description("coś Intel")
                 .categoryId(1)
                 .price(BigDecimal.valueOf(200))
                 .producer("Intel")
@@ -32,7 +34,7 @@ class CpuRepositoryTest {
     }
     @Test
     @DisplayName("Zapisywanie CPU")
-    void savingCPU(){
+    void savingCPU() {
         //given
         //when
         CPU savedCPU = cpuRepository.save(cpu);
@@ -42,6 +44,209 @@ class CpuRepositoryTest {
         assertThat(savedCPU.getId()).isGreaterThan(0);
         assertThat(savedCPU).isEqualTo(cpu);
     }
+    @Test
+    @DisplayName("Usuwanie CPU")
+    void deleteCPU(){
+        //given
+        cpuRepository.save(cpu);
+        //when
+        cpuRepository.deleteById(cpu.getId());
+        Optional<CPU> cpuOptional = cpuRepository.findById(cpu.getId());
+        //then
+        assertThat(cpuOptional).isEmpty();
+
+    }
+
+    @Test
+    @DisplayName("Pobieranie wszystkich CPU")
+    void findAllCpu() {
+        //given
+        CPU cpu1 = CPU.builder()
+                .id(2)
+                .name("5600")
+                .description("coś AMD ")
+                .categoryId(1)
+                .price(BigDecimal.valueOf(300))
+                .producer("AMD")
+                .amountInMagazine(5)
+                .core(8)
+                .baseFrequency(3.2f)
+                .build();
+        cpuRepository.save(cpu);
+        cpuRepository.save(cpu1);
+        //when
+        List<CPU> cpuList = cpuRepository.findAll();
+
+        //then
+        assertThat(cpuList).isNotNull();
+        assertThat(cpuList.size()).isEqualTo(2);
+    }
+    @Test
+    @DisplayName("Pobieranie CPU po id")
+    void findCPUbyId(){
+        //given
+        cpuRepository.save(cpu);
+        //when
+        CPU cpuById = cpuRepository.findById(cpu.getId()).get();
+        //then
+        assertThat(cpuById).isNotNull();
+        assertThat(cpuById).isEqualTo(cpu);
+    }
+    @Test
+    @DisplayName("Pobieranie CPU po nazwie")
+    void findCPUbyName(){
+        //given
+        cpuRepository.save(cpu);
+        //when
+        CPU cpuByName = cpuRepository.findByName(cpu.getName()).get();
+        //then
+        assertThat(cpuByName).isNotNull();
+        assertThat(cpuByName).isEqualTo(cpu);
+    }
+    @Test
+    @DisplayName("Pobieranie wszystkich CPU po kategorii")
+    void findCpuByCategory(){
+        //given
+        CPU cpu1 = CPU.builder()
+                .id(2)
+                .name("5600")
+                .description("coś AMD ")
+                .categoryId(1)
+                .price(BigDecimal.valueOf(300))
+                .producer("AMD")
+                .amountInMagazine(5)
+                .core(8)
+                .baseFrequency(3.2f)
+                .build();
+        cpuRepository.save(cpu);
+        cpuRepository.save(cpu1);
+        //when
+        List<CPU> cpuList = cpuRepository.findByCategoryId(1);
+        //then
+        assertThat(cpuList).isNotNull();
+        assertThat(cpuList.size()).isEqualTo(2);
+    }
+    @Test
+    @DisplayName("Pobieranie wszystkich CPU po cenie")
+    void findAllCPUbyPrice(){
+        //given
+        CPU cpu1 = CPU.builder()
+                .id(2)
+                .name("5600")
+                .description("coś AMD ")
+                .categoryId(1)
+                .price(BigDecimal.valueOf(200))
+                .producer("AMD")
+                .amountInMagazine(5)
+                .core(8)
+                .baseFrequency(3.2f)
+                .build();
+        cpuRepository.save(cpu);
+        cpuRepository.save(cpu1);
+        //when
+        List<CPU> cpuList = cpuRepository.findAllByPrice(BigDecimal.valueOf(200));
+        //then
+        assertThat(cpuList).isNotNull();
+        assertThat(cpuList.size()).isEqualTo(2);
+    }
+    @Test
+    @DisplayName("Pobieranie wszystkich CPU po producencie")
+    void findAllCPUbyProducer(){
+        //given
+        CPU cpu1 = CPU.builder()
+                .id(2)
+                .name("5600")
+                .description("coś AMD ")
+                .categoryId(1)
+                .price(BigDecimal.valueOf(300))
+                .producer("Intel")
+                .amountInMagazine(5)
+                .core(4)
+                .baseFrequency(3.2f)
+                .build();
+        cpuRepository.save(cpu);
+        cpuRepository.save(cpu1);
+        //when
+        List<CPU> cpuList =cpuRepository.findAllByProducer("Intel");
+        //then
+        assertThat(cpuList).isNotNull().isNotEmpty();
+        assertThat(cpuList.size()).isEqualTo(2);
+
+    }
+    @Test
+    @DisplayName("Pobieranie wszystkich CPU dostępnych w magazynie")
+    void findAllCPUbyAmountInMagazine() {
+        //given
+        CPU cpu1 = CPU.builder()
+                .id(2)
+                .name("5600")
+                .description("coś AMD ")
+                .categoryId(1)
+                .price(BigDecimal.valueOf(300))
+                .producer("AMD")
+                .amountInMagazine(5)
+                .core(8)
+                .baseFrequency(3.2f)
+                .build();
+        cpuRepository.save(cpu);
+        cpuRepository.save(cpu1);
+        //when
+        List<CPU> cpuList = cpuRepository.findAllByAmountInMagazineGreaterThan0();
+        //then
+        assertThat(cpuList).isNotNull();
+        assertThat(cpuList.size()).isEqualTo(2);
+    }
+//    @Test
+//    @DisplayName("Pobieranie wszystkich CPU dostępnych w magazynie")
+//    void findAllCPUbyAmountInMagazine() {
+//        //given
+//        CPU cpu1 = CPU.builder()
+//                .id(2)
+//                .name("5600")
+//                .description("coś AMD ")
+//                .categoryId(1)
+//                .price(BigDecimal.valueOf(300))
+//                .producer("AMD")
+//                .amountInMagazine(5)
+//                .core(8)
+//                .baseFrequency(3.2f)
+//                .build();
+//        CPU cpu2 = new CPU(1,"7000")
+//        cpuRepository.save(cpu);
+//        cpuRepository.save(cpu1);
+//        //when
+//        List<CPU> cpuList = cpuRepository.findAllByAmountInMagazineGreaterThan0();
+//        //then
+//        assertThat(cpuList).isNotNull();
+//        assertThat(cpuList.size()).isEqualTo(2);
+//    }
+
+//    @Test
+//    @DisplayName("Pobieranie wszystkich CPU po ilości rdzeni")
+//    void findAllCPUbyCores() {
+//        //given
+//        CPU cpu1 = CPU.builder()
+//                .id(2)
+//                .name("5600")
+//                .description("coś AMD ")
+//                .categoryId(1)
+//                .price(BigDecimal.valueOf(300))
+//                .producer("AMD")
+//                .amountInMagazine(10)
+//                .core(4)
+//                .baseFrequency(3.2f)
+//                .build();
+//        cpuRepository.save(cpu);
+//        cpuRepository.save(cpu1);
+//        //when
+//        List<CPU> cpuList = cpuRepository.findAllByCores(4);
+//        //then
+//        assertThat(cpuList).isNotNull();
+//        assertThat(cpuList.size()).isEqualTo(2);
+//    }
+    // TODO
+    // testy z 2 cpu z tymi samymi nazwami
+
 
 
 }
