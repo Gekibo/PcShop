@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class CPU extends Product {
+public class Cpu extends Product {
     @Column(nullable = false)
     private int core;
     @Column(name = "base_frequency", nullable = false)

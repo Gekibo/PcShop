@@ -15,16 +15,17 @@ import java.math.BigDecimal;
 @SuperBuilder
 @Entity
 @Table(name = "products")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Product {
 //    @Builder.Default
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private long id;
     @Column(nullable = false, unique = true)
     private String name;
     private String description;
-    @Column(name = "category_id", nullable = false)
-    private long categoryId;
+//    @Column(name = "category_id", nullable = false)
+//    private long categoryId;
     @Column(nullable = false)
     private BigDecimal price;
     @Column(nullable = false)
