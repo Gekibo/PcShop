@@ -11,7 +11,7 @@
 //@AllArgsConstructor
 //@NoArgsConstructor
 //@Builder
-//public class RAM extends Product {
+//public class Ram extends Product {
 //    @Column(nullable = false)
 //    private int size;
 //    private int ddr;
