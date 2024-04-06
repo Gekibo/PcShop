@@ -35,10 +35,6 @@ public class CpuServiceImpl implements CpuService {
         return cpuRepository.findById(id);
     }
 
-//    @Override
-//    public Cpu updateCpu(Cpu updatedCpu) {
-//        return cpuRepository.save(updatedCpu);
-//    }
 
     @Override
     public Optional<Cpu> updateCpu(long id, Cpu updatedCpu) {

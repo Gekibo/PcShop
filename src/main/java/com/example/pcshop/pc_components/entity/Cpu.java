@@ -1,15 +1,12 @@
 package com.example.pcshop.pc_components.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -18,9 +15,18 @@ import lombok.experimental.SuperBuilder;
 @Data
 @SuperBuilder
 @Table(name = "cpus")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+
 public class Cpu extends Product {
+
+    @NotNull(message = "Produkt musi posiadać liczbę rdzeni")
     @Column(nullable = false)
     private int core;
+    @NotNull(message = "Produkt musi posiadać taktowanie procesora")
     @Column(nullable = false)
     private float baseFrequency;
+
+
+
+
 }

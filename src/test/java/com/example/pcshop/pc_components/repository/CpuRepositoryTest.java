@@ -19,19 +19,22 @@ class CpuRepositoryTest {
     private CpuRepository cpuRepository;
     private Cpu cpu;
     @BeforeEach
-    void setUp(){
+    void setUp() {
+        cpuRepository.deleteAll();
         cpu = Cpu.builder()
 //                .id(1)
                 .name("i5-7500k")
                 .description("coś Intel")
-//                .categoryId(1)
                 .price(BigDecimal.valueOf(200))
                 .producer("Intel")
                 .amountInMagazine(10)
                 .core(4)
                 .baseFrequency(3.0f)
                 .build();
+//        cpu = new Cpu(1,"i5-7500k","coś Intel",BigDecimal.valueOf(200),"Intel",10,4,3.0f);
+
     }
+
     @Test
     @DisplayName("Zapisywanie CPU")
     void savingCPU() {
@@ -87,7 +90,7 @@ class CpuRepositoryTest {
         //given
         cpuRepository.save(cpu);
         //when
-        Cpu cpuById = cpuRepository.findById(cpu.getId()).get();
+        Cpu cpuById = cpuRepository.findById(cpu.getId()).orElseThrow(() -> new IllegalArgumentException("CPU not found"));
         //then
         assertThat(cpuById).isNotNull();
         assertThat(cpuById).isEqualTo(cpu);
@@ -98,7 +101,7 @@ class CpuRepositoryTest {
         //given
         cpuRepository.save(cpu);
         //when
-        Cpu cpuByName = cpuRepository.findByName(cpu.getName()).get();
+        Cpu cpuByName = cpuRepository.findByName(cpu.getName()).orElseThrow(() -> new IllegalArgumentException("CPU not found"));
         //then
         assertThat(cpuByName).isNotNull();
         assertThat(cpuByName).isEqualTo(cpu);
@@ -222,7 +225,7 @@ class CpuRepositoryTest {
         assertThat(cpuList.size()).isEqualTo(2);
     }
     @Test
-    @DisplayName("Pobieranie wszystkich CPU po ilości rdzeni")
+    @DisplayName("Pobieranie wszystkich CPU po taktowaniu większym bądź równym")
     void findAllCpuByBaseFrequency() {
         //given
         Cpu cpu1 = Cpu.builder()
