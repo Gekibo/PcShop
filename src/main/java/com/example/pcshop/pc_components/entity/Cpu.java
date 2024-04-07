@@ -15,7 +15,9 @@ import lombok.experimental.SuperBuilder;
 @Data
 @SuperBuilder
 @Table(name = "cpus")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@PrimaryKeyJoinColumn(name = "id")
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 
 public class Cpu extends Product {
 
@@ -25,8 +27,5 @@ public class Cpu extends Product {
     @NotNull(message = "Produkt musi posiadać taktowanie procesora")
     @Column(nullable = false)
     private float baseFrequency;
-
-
-
 
 }

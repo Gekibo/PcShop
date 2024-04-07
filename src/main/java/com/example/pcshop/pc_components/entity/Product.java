@@ -11,25 +11,27 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@MappedSuperclass
+@Entity
 @SuperBuilder
 @EqualsAndHashCode
-public class Product {
-
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "products")
+public abstract class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @NotNull(message = "Produkt musi posiadać unikalną nazwę")
-    @Column(nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
+    @Column(name = "description")
     private String description;
-//        @Column(name = "category_id", nullable = false)
+    //        @Column(name = "category_id", nullable = false)
 //    private long categoryId;
     @NotNull(message = "Produkt musi posiadać cenę")
-    @Column(nullable = false)
+    @Column(name = "price",nullable = false)
     private BigDecimal price;
     @NotNull(message = "Produkt musi posiadać producenta")
-    @Column(nullable = false)
+    @Column(name = "producer", nullable = false)
     private String producer;
     @NotNull(message = "Produkt musi posiadać liczbę produktów w magazynie")
     @Column(name = "amount_in_magazine", nullable = false)

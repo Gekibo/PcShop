@@ -19,8 +19,8 @@ public interface CpuRepository extends JpaRepository<Cpu,Long> {
     List<Cpu> findAllByProducer(String producer);
 
 
-@Query(value = "SELECT * FROM cpus c WHERE amount_in_magazine > 0", nativeQuery = true)
-//@Query(value = "SELECT c FROM Cpu c INNER JOIN Product p ON p.id = c.id WHERE p.amountInMagazine > 0")
+//@Query(value = "SELECT * FROM cpus c WHERE amount_in_magazine > 0", nativeQuery = true)
+@Query(value = "SELECT c FROM Cpu c INNER JOIN Product p ON p.id = c.id WHERE p.amountInMagazine > 0")
     List<Cpu> findAllByAmountInMagazineGreaterThan0();
 
 //    List<Cpu> findAllByPriceAndProducer(BigDecimal price, String producer);
