@@ -25,7 +25,7 @@ public class Cpu extends Product {
     @Column(nullable = false)
     private int core;
     @NotNull(message = "Produkt musi posiadać taktowanie procesora")
-    @Column(nullable = false)
+    @Column(name = "base_frequency", nullable = false)
     private float baseFrequency;
 
 }

@@ -1,22 +1,20 @@
-package com.example.pcshop.pc_components.entity;
+package com.example.pcshop.category;
 
 
 import jakarta.persistence.*;
 import lombok.*;
 
+@Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "caregories")
+@Table(name = "categories")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
-//    @JoinTable()
-//    @ManyToMany()
-//    private List<Peripheral> listOfPeripherals;
+
 }

@@ -1,5 +1,6 @@
 package com.example.pcshop.pc_components.entity;
 
+import com.example.pcshop.category.Category;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -16,23 +17,31 @@ import java.math.BigDecimal;
 @EqualsAndHashCode
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "products")
+
 public abstract class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     @NotNull(message = "Produkt musi posiadać unikalną nazwę")
     @Column(name = "name", nullable = false, unique = true)
     private String name;
+
     @Column(name = "description")
     private String description;
-    //        @Column(name = "category_id", nullable = false)
-//    private long categoryId;
+
+    @ManyToOne
+    @JoinColumn(name = "category", referencedColumnName = "name",nullable = false)
+    private Category category;
+
     @NotNull(message = "Produkt musi posiadać cenę")
     @Column(name = "price",nullable = false)
     private BigDecimal price;
+
     @NotNull(message = "Produkt musi posiadać producenta")
     @Column(name = "producer", nullable = false)
     private String producer;
+
     @NotNull(message = "Produkt musi posiadać liczbę produktów w magazynie")
     @Column(name = "amount_in_magazine", nullable = false)
     private int amountInMagazine;
