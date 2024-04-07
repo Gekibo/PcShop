@@ -1,5 +1,6 @@
 package com.example.pcshop.pc_components.repository;
 
+import com.example.pcshop.category.Category;
 import com.example.pcshop.pc_components.entity.Cpu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -25,13 +26,13 @@ class CpuRepositoryTest {
 //                .id(1)
                 .name("i5-7500k")
                 .description("coś Intel")
+                .category(Category.builder().id(1).name("CPU").build())
                 .price(BigDecimal.valueOf(200))
                 .producer("Intel")
                 .amountInMagazine(10)
                 .core(4)
                 .baseFrequency(3.0f)
                 .build();
-//        cpu = new Cpu(1,"i5-7500k","coś Intel",BigDecimal.valueOf(200),"Intel",10,4,3.0f);
 
     }
 
@@ -68,7 +69,7 @@ class CpuRepositoryTest {
                 .id(2)
                 .name("5600")
                 .description("coś AMD ")
-//                .categoryId(1)
+                .category(Category.builder().id(1).name("CPU").build())
                 .price(BigDecimal.valueOf(300))
                 .producer("AMD")
                 .amountInMagazine(5)
@@ -137,7 +138,7 @@ class CpuRepositoryTest {
                 .id(2)
                 .name("5600")
                 .description("coś AMD ")
-//                .categoryId(1)
+                .category(Category.builder().id(1).name("CPU").build())
                 .price(BigDecimal.valueOf(200))
                 .producer("AMD")
                 .amountInMagazine(5)
@@ -160,7 +161,7 @@ class CpuRepositoryTest {
                 .id(2)
                 .name("5600")
                 .description("coś AMD ")
-//                .categoryId(1)
+                .category(Category.builder().id(1).name("CPU").build())
                 .price(BigDecimal.valueOf(300))
                 .producer("Intel")
                 .amountInMagazine(5)
@@ -184,7 +185,7 @@ class CpuRepositoryTest {
                 .id(2)
                 .name("5600")
                 .description("coś AMD ")
-//                .categoryId(1)
+                .category(Category.builder().id(1).name("CPU").build())
                 .price(BigDecimal.valueOf(300))
                 .producer("AMD")
                 .amountInMagazine(5)
@@ -209,7 +210,7 @@ class CpuRepositoryTest {
                 .id(2)
                 .name("5600")
                 .description("coś AMD ")
-//                .categoryId(1)
+                .category(Category.builder().id(1).name("CPU").build())
                 .price(BigDecimal.valueOf(300))
                 .producer("AMD")
                 .amountInMagazine(10)
@@ -232,7 +233,7 @@ class CpuRepositoryTest {
                 .id(2)
                 .name("5600")
                 .description("coś AMD ")
-//                .categoryId(1)
+                .category(Category.builder().id(1).name("CPU").build())
                 .price(BigDecimal.valueOf(300))
                 .producer("AMD")
                 .amountInMagazine(10)
