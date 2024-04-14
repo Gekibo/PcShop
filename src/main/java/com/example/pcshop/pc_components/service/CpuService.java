@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CpuService {
-    Cpu save(Cpu cpu);
+    Optional<Cpu> saveCpu(Cpu cpu, long categoryId, String categoryName);
 
     List<Cpu> findAll();
 

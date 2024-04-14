@@ -8,9 +8,11 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-public interface CpuRepository extends JpaRepository<Cpu,Long> {
+public interface CpuRepository extends JpaRepository<Cpu, Long> {
 
     Optional<Cpu> findByName(String name);
+//    @Query(value = "INSERT INTO cpus ( name, description, category, price, producer, amount_in_magazine, core, base_frequency) values( :name, :description, :category, :price, :producer, :amount_in_magazine, :core, :base_frequency)", nativeQuery = true)
+//    Optional<Cpu> saveCpu(Cpu cpu);
 
 //    List<CPU> findByCategoryId(long categoryId);
 

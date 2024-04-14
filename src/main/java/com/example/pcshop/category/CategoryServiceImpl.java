@@ -1,6 +1,6 @@
 package com.example.pcshop.category;
 
-import com.example.pcshop.pc_components.exceptions.ProductAlreadyExists;
+import com.example.pcshop.pc_components.exceptions.AlreadyExists;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Category save(Category category) {
         Optional<Category> savedCategory = categoryRepository.findByName(category.getName());
         if (savedCategory.isPresent())
-            throw new ProductAlreadyExists("Category already exists with given name: " +category.getName());
+            throw new AlreadyExists("Category already exists with given name: " +category.getName());
         return categoryRepository.save(category);
     }
 
