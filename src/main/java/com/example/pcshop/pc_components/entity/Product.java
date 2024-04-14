@@ -20,17 +20,17 @@ import java.math.BigDecimal;
 
 public abstract class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull(message = "Produkt musi posiadać unikalną nazwę")
+//    @NotNull(message = "Produkt musi posiadać unikalną nazwę")
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category", referencedColumnName = "name",nullable = false)
     private Category category;
 
@@ -45,6 +45,9 @@ public abstract class Product {
     @NotNull(message = "Produkt musi posiadać liczbę produktów w magazynie")
     @Column(name = "amount_in_magazine", nullable = false)
     private int amountInMagazine;
+//    @ManyToOne
+//    @JoinColumn(name = "shopping_cart_id", referencedColumnName = "id")
+//    private ShoppingCart shoppingCart;
 
 
 }

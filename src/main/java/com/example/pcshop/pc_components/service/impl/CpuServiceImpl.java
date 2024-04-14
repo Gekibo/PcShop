@@ -1,7 +1,8 @@
 package com.example.pcshop.pc_components.service.impl;
 
+import com.example.pcshop.category.Category;
 import com.example.pcshop.pc_components.entity.Cpu;
-import com.example.pcshop.pc_components.exceptions.ProductAlreadyExists;
+import com.example.pcshop.pc_components.exceptions.AlreadyExists;
 import com.example.pcshop.pc_components.repository.CpuRepository;
 import com.example.pcshop.pc_components.service.CpuService;
 import org.springframework.stereotype.Service;
@@ -18,11 +19,16 @@ public class CpuServiceImpl implements CpuService {
     }
 
     @Override
-    public Cpu save(Cpu cpu) {
+    public Optional<Cpu> saveCpu(Cpu cpu, long categoryId, String categoryName) {
+        cpu.setCategory(Category.builder().id(categoryId).name(categoryName).build()); //spytać się Jarka czy git
         Optional<Cpu> savedCpu = cpuRepository.findByName(cpu.getName());
+        Optional<Cpu> savedCpu1 = cpuRepository.findById(cpu.getId());
         if (savedCpu.isPresent())
-            throw new ProductAlreadyExists("Product already exists with given name: " +cpu.getName());
-        return cpuRepository.save(cpu);
+            throw new AlreadyExists("Product already exists with given name: " +cpu.getName());
+        else if (savedCpu1.isPresent()) {
+            throw new AlreadyExists("Product already exists with given id: " +cpu.getId());
+        }
+        return Optional.of(cpuRepository.save(cpu));
     }
 
     @Override
